@@ -4,33 +4,27 @@ using Microsoft.AspNetCore.Mvc;
 using Pierre.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Pierre.Controllers
 {
   public class FlavorsController : Controller
   {
     private readonly PierreContext _db;
-    public FlavorsController(PierreContext db)
+    private readonly UserManager<ApplicationUser> _userManager;
+    public FlavorsController(UserManager<ApplicationUser> userManager, PierreContext db)
     {
-        _db = db;
+      _userManager = userManager;
+      _db = db;
     }
     public ActionResult Index()
     {
       List<Flavor> model = _db.Flavors.ToList();
       return View(model);
     }
-    public ActionResult Create()
-    {
-      return View();
-    }
-    [HttpPost]
-    public ActionResult Create(Flavor flavor)
-    {
-      _db.Flavors.Add(flavor);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
-    }
-
     public ActionResult Details(int id)
     {
       Flavor thisFlavor = _db.Flavors
@@ -39,6 +33,23 @@ namespace Pierre.Controllers
         .FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
+
+    [Authorize]
+    public ActionResult Create()
+    {
+      return View();
+    }
+    [HttpPost]
+    public async Task<ActionResult> Create(Flavor flavor)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      flavor.User = currentUser;
+      _db.Flavors.Add(flavor);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
     public ActionResult Edit(int id)
     {
         Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavors => flavors.FlavorId == id);
