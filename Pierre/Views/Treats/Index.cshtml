@@ -1,0 +1,30 @@
+@using ToDoList.Models;
+@{
+    Layout = "_Layout";
+}
+@model List<ToDoList.Models.Item>;
+<h1>Items</h1>
+
+@if (Model.Count == 0)
+{
+  <h3>No items have been added yet.</h3>
+}
+<ul>
+  @foreach (Item item in Model)
+  {
+    <li>
+      @if (item.Completed)
+      {
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+      }
+      else 
+      {
+        <i class="fa fa-square-o" aria-hidden="true"></i>
+      }
+      @Html.ActionLink($"{item.Description}","Details", new {id = item.ItemId})
+      @item.DueDate</li>
+  }
+</ul>
+
+<p>@Html.ActionLink("Add new item", "Create")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
