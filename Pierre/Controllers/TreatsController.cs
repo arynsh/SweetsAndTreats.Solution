@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Pierre.Controllers
 {
   public class TreatsController : Controller
   {
     private readonly PierreContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TreatsController(PierreContext db)
+    public TreatsController(UserManager<ApplicationUser> userManager, PierreContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
@@ -27,8 +33,10 @@ namespace Pierre.Controllers
       return View();
     }
     [HttpPost]
-    public ActionResult Create(Treat treat, int FlavorId)
-    {
+    public async Task<ActionResult> Create(Treat treat, int FlavorId)    {
+        var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var currentUser = await _userManager.FindByIdAsync(userId);
+        treat.User = currentUser;
         _db.Treats.Add(treat);
         if (FlavorId != 0)
         {
@@ -86,4 +94,20 @@ namespace Pierre.Controllers
     }
     
   }
+
+  // public class TreatsController : Controller
+  // {
+  //   private readonly PierreContext _db;
+  //     public TreatsController(PierreContext db)
+  //   {
+  //     _db = db;
+  //   }
+
+  //   public ActionResult Index()
+  //   {
+  //     List<Treat> model = _db.Treats.ToList();
+  //     return View(model);
+  //   }
+  // }
+
 }
