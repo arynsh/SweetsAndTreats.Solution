@@ -7,7 +7,7 @@ namespace Pierre.Models
         // public Flavor()
         // {
         //     this.Treats = new HashSet<FlavorTreat>();
-        // }
+        
         public string Name { get; set; }
         public int FlavorId { get; set;}
         // public virtual ICollection<FlavorTreat> Treats { get; set; }
