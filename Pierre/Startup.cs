@@ -29,9 +29,9 @@ namespace Pierre
         .AddDbContext<PierreContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
 
-    //   services.AddIdentity<ApplicationUser, IdentityRole>()
-    //             .AddEntityFrameworkStores<PierreContext>()
-    //             .AddDefaultTokenProviders();
+      services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<PierreContext>()
+                .AddDefaultTokenProviders();
     }
 
     public void Configure(IApplicationBuilder app)
