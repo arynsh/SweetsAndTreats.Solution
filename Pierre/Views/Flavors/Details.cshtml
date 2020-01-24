@@ -8,20 +8,20 @@
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 
-@if(@Model.Items.Count == 0)
+@* @if(@Model.Treats.Count == 0)
 {
-  <p>This flavor does not contain any items</p>
+  <p>This flavor does not contain any treats.</p>
 }
 else
 {
-  <h4>Items the flavor contains:</h4>
+  <h4>Treats the flavor contains:</h4>
   <ul>
-  @foreach(var join in Model.Items)
+  @foreach(var join in Model.Treats)
   {
     <li>@join.Item.Description</li>
   }
   </ul>
-}
+} *@
 
 <p>@Html.ActionLink("Edit Flavor", "Edit", new {id = Model.FlavorId} )</p>
 <p>@Html.ActionLink("Delete Flavor", "Delete", new {id = Model.FlavorId})</p>
