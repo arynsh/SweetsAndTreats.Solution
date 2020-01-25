@@ -21,11 +21,15 @@ namespace Pierre.Controllers
       _userManager = userManager;
       _db = db;
     }
+
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Flavor> model = _db.Flavors.ToList();
       return View(model);
     }
+
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       Flavor thisFlavor = _db.Flavors

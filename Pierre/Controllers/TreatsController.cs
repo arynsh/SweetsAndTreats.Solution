@@ -23,12 +23,13 @@ namespace Pierre.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Treat> model = _db.Treats.ToList();
       return View(model);
     }
-
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
         var thisTreat = _db.Treats
