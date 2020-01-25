@@ -11,6 +11,7 @@ using System.Security.Claims;
 
 namespace Pierre.Controllers
 {
+  [Authorize] 
   public class TreatsController : Controller
   {
     private readonly PierreContext _db;
@@ -37,7 +38,7 @@ namespace Pierre.Controllers
         return View(thisTreat);
     }
 
-    [Authorize] 
+    
     public ActionResult Create()
     {
       ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
