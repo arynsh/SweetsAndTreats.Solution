@@ -37,6 +37,7 @@ This program for a bakery will implement a many-many database (treats and flavor
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 * [ASP.Net](https://dotnet.microsoft.com/apps/aspnet)
 * [MySQLWorkbench](https://www.mysql.com/)
+* [Identity (https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-3.1&tabs=visual-studio)]
 * [Entity Framework Core](https://docs.microsoft.com/en-us/ef/#pivot=entityfmwk)
 * Microsoft.NET.Sdk.Web
 * [Visual Studio](https://www.visualstudiocommunity.com)
