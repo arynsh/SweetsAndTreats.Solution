@@ -11,6 +11,7 @@ using System.Security.Claims;
 
 namespace Pierre.Controllers
 {
+  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly PierreContext _db;
@@ -34,7 +35,7 @@ namespace Pierre.Controllers
       return View(thisFlavor);
     }
 
-    [Authorize]
+
     public ActionResult Create()
     {
       return View();
